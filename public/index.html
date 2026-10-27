@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SCR Waiver System</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo">SCR</span><div><b>Lien Waiver System</b><small id="projline">State Construction Registry · waiver orders</small></div></div>
+  <nav class="tabs">
+    <button class="tab active" data-view="dashboard">Dashboard</button>
+    <button class="tab" data-view="new">New Request</button>
+    <button class="tab" data-view="templates">Templates</button>
+    <button class="tab" data-view="reports">Reports</button>
+    <button class="tab" data-view="batch">Batch Upload</button>
+  </nav>
+</header>
+
+<main id="app">
+  <!-- Dashboard -->
+  <section id="dashboard" class="view active">
+    <div class="kpis" id="kpis"></div>
+    <div class="toolbar">
+      <input id="search" placeholder="Search vendor or SCR entry…">
+      <select id="fStatus"><option value="">All statuses</option></select>
+      <input id="fFile" placeholder="File #">
+      <input id="fReq" placeholder="Requestor">
+      <button id="btnClear" class="ghost">Clear</button>
+    </div>
+    <div class="tablewrap">
+      <table id="ordersTable">
+        <thead><tr>
+          <th>Vendor</th><th>Trade</th><th>File #</th><th>SCR Entry #(s)</th><th>Type</th>
+          <th>Requestor</th><th>Requested</th><th>Due</th><th>Status</th><th>Sent</th><th>Actions</th>
+        </tr></thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+      <p id="ordersEmpty" class="empty hidden">No orders yet. Create one in <b>New Request</b> or seed them from <b>Batch Upload</b>.</p>
+    </div>
+  </section>
+
+  <!-- New Request -->
+  <section id="new" class="view">
+    <h2>New Waiver Request</h2>
+    <form id="newForm" class="card form">
+      <label>Vendor
+        <select id="nVendor"></select>
+      </label>
+      <div class="row">
+        <label>Title File # <input id="nFile" placeholder="e.g. ORT-CORMONT-014"></label>
+        <label>Requested by <input id="nReq" placeholder="your name"></label>
+      </div>
+      <div class="row">
+        <label>Waiver type
+          <select id="nType"><option>Conditional</option><option>Unconditional</option></select>
+        </label>
+        <label>Payment stage
+          <select id="nStage"><option>Progress</option><option>Final</option></select>
+        </label>
+      </div>
+      <div class="row">
+        <label>Amount owing <input id="nAmount" placeholder="$ optional"></label>
+        <label>Due date <input id="nDue" type="date"><small class="hint">blank = auto (10 business days)</small></label>
+      </div>
+      <label>Vendor email (editable) <input id="nEmail" placeholder="vendor@email"></label>
+      <label>SCR entry number(s) <input id="nEntries" placeholder="auto-filled from vendor"></label>
+      <label>Notes <textarea id="nNotes" rows="2"></textarea></label>
+      <div class="actions"><button type="submit" class="primary">Create request</button><span id="newMsg" class="msg"></span></div>
+    </form>
+  </section>
+
+  <!-- Templates -->
+  <section id="templates" class="view">
+    <h2>Request Templates</h2>
+    <p class="sub">Edit the statutory waiver text or the coversheet. Tokens like <code>{{VENDOR}}</code>, <code>{{PROJECT}}</code>, <code>{{ENTRIES}}</code> are filled per order at print time.</p>
+    <div id="tmplList" class="tmpls"></div>
+  </section>
+
+  <!-- Reports -->
+  <section id="reports" class="view">
+    <h2>Reports</h2>
+    <div class="repgrid">
+      <div class="card">
+        <h3>Status Report</h3>
+        <div id="statusReport"></div>
+      </div>
+      <div class="card">
+        <h3>Missing Requests</h3>
+        <p class="sub">Vendors found in the registry scrub with no active order yet.</p>
+        <div id="missingReport"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>All Activity</h3>
+      <div class="toolbar">
+        <input id="aFrom" type="date"><span>to</span><input id="aTo" type="date">
+        <input id="aFile" placeholder="File #"><input id="aReq" placeholder="Requestor">
+        <button id="aRun" class="ghost">Filter</button>
+        <a id="aCsv" class="ghost btnlink" href="#">Export CSV</a>
+      </div>
+      <div class="tablewrap"><table id="actTable"><thead><tr><th>When</th><th>Action</th><th>Vendor</th><th>File #</th><th>Requestor</th><th>Detail</th></tr></thead><tbody id="actBody"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- Batch -->
+  <section id="batch" class="view">
+    <h2>Batch Upload</h2>
+    <div class="card">
+      <h3>Create many requests at once</h3>
+      <p class="sub">Upload a CSV with columns like <code>vendor, file_no, requestor, scr_entries, email</code> (vendor is required; the rest fall back to the fields below and to the vendor's registry data).</p>
+      <div class="row">
+        <label>File # for batch <input id="bFile" placeholder="ORT-CORMONT-001"></label>
+        <label>Requestor <input id="bReq" placeholder="your name"></label>
+      </div>
+      <div class="row">
+        <label>Waiver type <select id="bType"><option>Conditional</option><option>Unconditional</option></select></label>
+        <label>Payment stage <select id="bStage"><option>Progress</option><option>Final</option></select></label>
+      </div>
+      <input type="file" id="bFileInput" accept=".csv">
+      <div class="actions">
+        <button id="bUpload" class="primary">Upload CSV</button>
+        <button id="bAll" class="secondary">Create for all missing vendors</button>
+        <span id="bMsg" class="msg"></span>
+      </div>
+      <p class="sub">The <b>all missing</b> button instantly creates one request for every vendor that doesn't have an active order — handy to stand the project up from the registry scrub.</p>
+    </div>
+  </section>
+</main>
+
+<div id="drawer" class="drawer hidden"><div class="drawer-inner" id="drawerInner"></div></div>
+<script src="/app.js"></script>
+</body>
+</html>

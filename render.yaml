@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: scr-waiver-system
+    runtime: node
+    plan: starter            # free tier works too; starter keeps the disk
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATA_DIR
+        value: /var/data      # mount a persistent disk here
+    disk:
+      name: scr-data
+      mountPath: /var/data
+      sizeGB: 1
