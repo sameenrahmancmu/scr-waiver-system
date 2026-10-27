@@ -4,7 +4,7 @@
   "description": "SCR lien-waiver order management system (dashboard, templates, reports, batch upload)",
   "main": "server.js",
   "engines": {
-    "node": ">=18"
+    "node": "22.x"
   },
   "scripts": {
     "start": "node server.js",
