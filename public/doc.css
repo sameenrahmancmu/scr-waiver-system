@@ -1,21 +1,39 @@
-body{font-family:Arial,sans-serif;color:#111;max-width:760px;margin:30px auto;padding:0 28px;font-size:12px;line-height:1.5}
-h1{font-size:15px;text-align:center;margin:0 0 16px}
-h2{font-size:12.5px;margin:20px 0 8px}
-.wv-meta{width:100%;margin-bottom:10px}
-.wv-meta .lbl{font-weight:700;white-space:nowrap;padding-right:16px;vertical-align:top;width:220px}
-.wv-meta td{padding:2px 0}
-.fld{margin:6px 0;font-weight:600}
-.wv-sig{margin-top:26px}.wv-sig p{margin:4px 0}
-.wv-exhibit{margin-top:24px}
-table.ex{border-collapse:collapse;margin-top:8px;width:60%}
-table.ex th,table.ex td{border:1px solid #777;padding:4px 8px;font-size:11px;text-align:left}
-table.ex th{background:#e9eef6}
-.cs h1{font-size:16px}.cs-sub{text-align:center;color:#555;margin-top:-10px}
-.cs-meta{width:100%;border-collapse:collapse;margin:16px 0}
-.cs-meta td{padding:5px 8px;border:1px solid #ccd;font-size:12px}
-.cs-meta .lbl{font-weight:700;background:#eef2f9;white-space:nowrap}
-.cs-body{margin:12px 0}
-.pagebreak{page-break-after:always}
-.bar.noprint{position:fixed;bottom:0;left:0;right:0;background:#1f3864;padding:10px;text-align:center}
-.bar.noprint button{background:#fff;color:#1f3864;border:0;border-radius:7px;padding:8px 18px;font-weight:700;cursor:pointer}
-@media print{.noprint{display:none}body{margin:0}}
+body{margin:0;background:#e9edf3;font-family:Arial,Helvetica,sans-serif;color:#000;font-size:10pt;line-height:1.38}
+.toolbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0f1e3a;color:#fff;padding:10px 18px;font-family:Inter,Arial,sans-serif;font-size:13px;font-weight:600}
+.toolbar button{background:#fff;color:#0f1e3a;border:0;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer}
+.page{background:#fff;width:8.5in;min-height:11in;margin:18px auto;padding:.85in .9in;box-shadow:0 4px 18px rgba(15,23,42,.12);box-sizing:border-box}
+.pagebreak{break-after:page;height:0}
+/* waiver */
+.wv-title{font-size:11pt;font-weight:700;text-align:center;margin:0 0 18px;letter-spacing:.2px}
+.wv-fields{border-collapse:collapse;margin-bottom:12px}
+.wv-fields td{padding:2px 0;vertical-align:top;font-size:10pt}
+.wv-fields td:first-child{font-weight:700;width:2.6in;white-space:nowrap}
+mark{background:#ffff00;color:#000;padding:0 2px;font-weight:700}
+.wv-line{margin:12px 0;font-weight:700}
+.wv-line u{font-weight:400;text-decoration:none;border-bottom:1px solid #000;padding:0 6px;min-width:2.6in;display:inline-block}
+p{margin:0 0 9px;text-align:justify}
+.wv-ind{margin-left:.3in}
+.wv-notice{font-weight:700;border:1px solid #000;padding:8px 10px;margin-top:12px}
+.wv-sig{margin-top:26px}
+.wv-sig p{margin:0 0 10px;text-align:left}
+.wv-sp{margin-top:18px!important}
+/* exhibit A */
+.ex-title{font-size:11pt;text-align:center;margin:0 0 12px}
+.ex-filer{font-weight:700;font-style:italic;margin-bottom:10px;text-align:left}
+table.ex{width:100%;border-collapse:collapse;table-layout:fixed}
+table.ex td{border:1px solid #9aa4b2;padding:3px 6px;font-size:8pt}
+table.ex tr.ex-h td{background:#d9e2f3;font-size:8.5pt;padding:5px 6px}
+/* coversheet */
+.cs-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #1d3b72;padding-bottom:12px;margin-bottom:18px}
+.cs-co{font-size:16pt;font-weight:700;color:#1d3b72}
+.cs-dept{color:#555;font-size:9pt;margin-top:2px}
+.cs-badge{border:2px solid #1d3b72;color:#1d3b72;font-weight:700;padding:6px 12px;font-size:10pt;letter-spacing:.6px}
+.cs-grid{width:100%;border-collapse:collapse;margin-bottom:18px}
+.cs-grid th,.cs-grid td{border:1px solid #b9c2d0;padding:7px 9px;vertical-align:top;text-align:left;font-size:9.5pt}
+.cs-grid th{background:#eef2f9;width:1.35in;font-weight:700;color:#1d3b72}
+.cs-due{font-weight:700;color:#b00020}
+.cs h3{font-size:10.5pt;color:#1d3b72;margin:0 0 6px}
+.cs ol{margin:0 0 14px;padding-left:20px}
+.cs li{margin-bottom:5px}
+.cs-fine{font-size:8.5pt;color:#444}
+@media print{body{background:#fff}.noprint{display:none}.page{margin:0;box-shadow:none;width:auto;min-height:0;padding:.6in .7in;break-after:page}.page:last-child{break-after:auto}}
